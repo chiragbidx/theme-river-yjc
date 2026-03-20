@@ -6,10 +6,6 @@ import { getAuthSession } from "@/lib/auth/session";
 import { db } from "@/lib/db/client";
 import { teamInvitations, teamMembers, teams, users } from "@/lib/db/schema";
 
-// Purpose: Server route entry for /dashboard/team.
-// Keep membership checks and team/invitation queries here,
-// then pass prepared props into `client.tsx`.
-
 type TeamPageProps = {
   searchParams?: Promise<{
     status?: string;
@@ -60,7 +56,7 @@ export default async function TeamPage({ searchParams }: TeamPageProps) {
     .where(eq(teams.id, membership.teamId))
     .limit(1);
 
-  if (!team) redirect("/dashboard");
+  if (!team) redirect("/dashboard/overview");
 
   const members = await db
     .select({
